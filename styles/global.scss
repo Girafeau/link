@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+
+$family-sans-serif: 'Varela Round', sans-serif;
+
+$control-border-width: 2px;
+
+$input-shadow: none;
+
+
+
+body {
+    margin: 0 auto;
+}
+
+.underline {
+    border-bottom: 1px solid;
+}
+
+.form {
+    margin-top: 4em;
+}
+
+
+
+@import '../node_modules/bulma/bulma.sass';
+@import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";

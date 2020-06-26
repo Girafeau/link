@@ -1,0 +1,25 @@
+{
+  "name": "urlmanager",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "css-build": "node-sass --omit-source-map-url styles/global.scss styles/global.css",
+    "css-watch": "npm run css-build -- --watch"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@hapi/joi": "^17.1.1",
+    "bulma": "^0.9.0",
+    "monk": "^7.3.0",
+    "nanoid": "^3.1.10",
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  }
+}
