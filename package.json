@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "css-build": "node-sass --omit-source-map-url styles/global.scss styles/global.css",
     "css-watch": "npm run css-build -- --watch"
   },
