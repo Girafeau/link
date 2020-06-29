@@ -6,22 +6,34 @@ $family-sans-serif: 'Varela Round', sans-serif;
 $control-border-width: 2px;
 
 $input-shadow: none;
+//$input-focus-box-shadow-size: 0em;
 
+$message-background-color: white;
+$success: #0B843E;
 
 
 body {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .underline {
-    border-bottom: 1px solid;
+  border-bottom: 1px solid;
 }
 
 .form {
-    margin-top: 4em;
+  margin-top: 4em;
 }
 
-
+.message {
+  height: 3em;
+  border: 2px dashed;
+  border-color: $success;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
+}
 
 @import '../node_modules/bulma/bulma.sass';
 @import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css";

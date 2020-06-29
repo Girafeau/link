@@ -1,8 +1,25 @@
 import Link from "next/link";
 
-function redirection() {
+function redirection(props) {
     return (<div>
-        Redirection en cours...
+        <section className="hero is-medium">
+            <div className="hero-body">
+                <div className="container">
+                    <div className="columns is-vcentered">
+                        <div className="column is-half">
+                            <h1 className="title is-1 is-spaced">{props.titre}</h1>
+                            <h2 className="subtitle is-4">{props.texte}</h2>
+                            <Link href="/">
+                                <a className="button is-black is-medium">Retourner à l'accueil</a>
+                            </Link>
+                        </div>
+                        <div className="column is-half">
+                            <img src={props.image}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>);
 }
 
@@ -18,16 +35,32 @@ export async function getServerSideProps(context) {
     });
 
     if (!existe) {
-        context.res.writeHead(302, {Location: '/inexistant'});
-        context.res.end();
+        return {
+            props: {
+                titre: 'Oups ce lien n\'existe pas.',
+                texte: 'Soit vous vous êtes trompé soit on vous a fait une mauvaise farce.',
+                image: '/hugo-bad-gateway.png'
+            }
+        }
     } else {
         const accessible = true;
         if(!accessible) {
-            context.res.writeHead(302, {Location: '/inaccessible'});
-            context.res.end();
+            return {
+                props: {
+                    titre: 'Oups ce lien n\'est plus accessible.',
+                    texte: 'L\'auteur de ce lien a restreint son usage et il n\'est désormais plus possible d\'y accéder.',
+                    image: '/hugo-no-connection.png'
+                }
+            }
         } else {
-            context.res.writeHead(302, {Location: existe.lien});
-            context.res.end();
+            if(existe.lien.includes('http://') || existe.lien.includes('https://')) {
+                context.res.writeHead(302, {Location: existe.lien});
+                context.res.end();
+            } else {
+                context.res.writeHead(302, {Location: 'https://' + existe.lien});
+                context.res.end();
+            }
+
         }
     }
 }

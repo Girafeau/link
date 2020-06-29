@@ -11,7 +11,8 @@ export default class Principale extends React.Component {
             restrictions: false,
             lien: '',
             duree: null,
-            identifiant: ''
+            identifiant: '',
+            erreur: ''
         }
 
         this.verifier = this.verifier.bind(this);
@@ -26,7 +27,7 @@ export default class Principale extends React.Component {
         }
         const donnees = await POST.redirection(objet);
         if (donnees.err) {
-            this.setState({etat: 1});
+            this.setState({etat: 1, erreur: donnees.message});
         } else {
             this.setState({identifiant: donnees.identifiant, etat: 2});
         }
@@ -46,7 +47,7 @@ export default class Principale extends React.Component {
     message() {
         switch (this.state.etat) {
             case 1:
-                return <Erreur/>;
+                return <Erreur erreur={this.state.erreur}/>;
                 break;
             case 2:
                 return <Succes identifiant={this.state.identifiant}/>;
@@ -58,7 +59,13 @@ export default class Principale extends React.Component {
 
     restrictions() {
         if (this.state.restrictions) {
-            return ('restrictions');
+            return (<div className="field is-grouped">
+                <div class="control">
+                    <input placeholder="2" className="input is-medium"
+                           name="duree" value={this.state.duree}
+                           onChange={this.verifier}/>
+                </div>
+            </div>);
         } else {
             return ('');
         }
@@ -87,9 +94,11 @@ export default class Principale extends React.Component {
 
                             <div className="navbar-menu">
                                 <div className="navbar-end">
-                                    <a className="navbar-item" href="https://bulma.io">
+                                    <a className="navbar-item"
+                                       href="/informations">
                                         <span className="underline">Comment ça fonctionne ?</span>
                                     </a>
+
                                 </div>
                             </div>
                         </nav>
@@ -107,7 +116,7 @@ export default class Principale extends React.Component {
                                     <div className="form">
                                         <form onSubmit={this.envoyer}>
                                             <div className="field is-grouped">
-                                                <div class="control">
+                                                <div class="control is-expanded">
                                                     <input placeholder="www.google.com" className="input is-medium"
                                                            name="lien" value={this.state.lien}
                                                            onChange={this.verifier}/>
@@ -124,12 +133,18 @@ export default class Principale extends React.Component {
                                             {this.restrictions()}
 
                                             <div className="field is-grouped">
-                                                <span onClick={this.afficher}>
-                                            Options de restriction
-                                                </span>
                                                 <span className="icon">
-                                                 <i className="fas fa-chevron-down"></i>
+                                                    {
+                                                        this.state.restrictions ?
+                                                            <i className="fas fa-chevron-up"></i> :
+                                                            <i className="fas fa-chevron-down"></i>
+                                                    }
+
                                             </span>
+                                                <span onClick={this.afficher}>
+                                            Plus d'options
+                                                </span>
+
                                             </div>
 
 
@@ -149,21 +164,31 @@ export default class Principale extends React.Component {
 }
 
 function Succes(props) {
-    return (<div className="ligne">
-        Votre nouveau lien :
-        <Link
-            href={'/' + props.identifiant}>
-            <a>{props.identifiant}</a>
-        </Link>
-        <span className="icon has-text-success">
-        <i className="far fa-copy"></i>
+    return (<div className="field">
+
+        <div className="message">
+             <span className="icon has-text-success">
+                <i className="fas fa-lg fa-check-circle"></i>
+                       </span>
+            <span>
+
+            Votre nouveau lien :
+            <Link
+                href={'/' + props.identifiant}>
+                <a>{props.identifiant}</a>
+            </Link>
+                </span>
+            <span className="icon has-text-success">
+        <i className="far fa-lg fa-clipboard"></i>
               </span>
+        </div>
+
     </div>);
 
 }
 
 function Erreur(props) {
-    return (<div>
-        Echec
+    return (<div className="field">
+        <span className="has-text-danger">{props.erreur}</span>
     </div>);
 }
