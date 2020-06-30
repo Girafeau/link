@@ -10,10 +10,18 @@ $input-shadow: none;
 
 $message-background-color: white;
 $success: #0B843E;
+$danger: #FF1A26;
+$label-weight: 500;
+$input-arrow: black;
+$link: #9000FF;
 
 
 body {
   margin: 0 auto;
+}
+
+.pointer:hover {
+  cursor: pointer;
 }
 
 .underline {
@@ -26,14 +34,26 @@ body {
 
 .message {
   height: 3em;
-  border: 2px dashed;
-  border-color: $success;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-left: 1em;
   padding-right: 1em;
 }
+
+.has-border-dashed {
+
+  border: 2px dashed;
+}
+
+.has-border-success {
+  border-color: $success;
+}
+
+.has-border-danger {
+  border-color: $danger;
+}
+
 
 @import '../node_modules/bulma/bulma.sass';
 @import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css";

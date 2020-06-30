@@ -59,13 +59,38 @@ export default class Principale extends React.Component {
 
     restrictions() {
         if (this.state.restrictions) {
-            return (<div className="field is-grouped">
-                <div class="control">
-                    <input placeholder="2" className="input is-medium"
-                           name="duree" value={this.state.duree}
-                           onChange={this.verifier}/>
+            return (<div className="field">
+                    <hr/>
+
+                    <div className="field is-grouped">
+                        <div class="control">
+                            <label className="label">Durée de validité</label>
+                            <input placeholder="2" className="input"
+                                   name="duree" value={this.state.duree}
+                                   onChange={this.verifier}/>
+                        </div>
+                        <div className="control">
+                            <label className="label">&nbsp;</label>
+                            <div className="select">
+                                <select>
+                                    <option>minutes</option>
+                                    <option>heures</option>
+                                    <option>jours</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="field is-grouped">
+                        <div className="control">
+                            <label className="label">Utilisation max</label>
+                            <input placeholder="2" className="input"
+                                   name="utilisation" value={this.state.duree}
+                                   onChange={this.verifier}/>
+                        </div>
+                    </div>
                 </div>
-            </div>);
+            );
         } else {
             return ('');
         }
@@ -133,6 +158,7 @@ export default class Principale extends React.Component {
                                             {this.restrictions()}
 
                                             <div className="field is-grouped">
+                                                <label className="label pointer">
                                                 <span className="icon">
                                                     {
                                                         this.state.restrictions ?
@@ -144,7 +170,7 @@ export default class Principale extends React.Component {
                                                 <span onClick={this.afficher}>
                                             Plus d'options
                                                 </span>
-
+                                                </label>
                                             </div>
 
 
@@ -166,7 +192,7 @@ export default class Principale extends React.Component {
 function Succes(props) {
     return (<div className="field">
 
-        <div className="message">
+        <div className="message has-border-dashed has-border-success">
              <span className="icon has-text-success">
                 <i className="fas fa-lg fa-check-circle"></i>
                        </span>
@@ -189,6 +215,13 @@ function Succes(props) {
 
 function Erreur(props) {
     return (<div className="field">
-        <span className="has-text-danger">{props.erreur}</span>
+        <div className="message has-border-dashed has-border-danger">
+             <span className="icon has-text-danger">
+               <i className="fas fa-lg fa-times-circle"></i>
+                       </span>
+
+            <span className="has-text-danger">{props.erreur}</span>
+
+        </div>
     </div>);
 }
