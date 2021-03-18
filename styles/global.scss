@@ -1,20 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
-
 $family-sans-serif: 'Varela Round', sans-serif;
-
 $control-border-width: 2px;
-
-$input-shadow: none;
-//$input-focus-box-shadow-size: 0em;
-
+$radius: 4px;
 $message-background-color: white;
 $success: #0B843E;
 $danger: #FF1A26;
 $label-weight: 500;
 $input-arrow: black;
 $link: #9000FF;
-
 
 body {
   margin: 0 auto;
@@ -42,8 +36,7 @@ body {
 }
 
 .has-border-dashed {
-
-  border: 2px dashed;
+  border: $control-border-width dashed;
 }
 
 .has-border-success {

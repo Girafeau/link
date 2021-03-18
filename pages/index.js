@@ -9,21 +9,21 @@ export default class Principale extends React.Component {
         this.state = {
             etat: 0,
             restrictions: false,
-            lien: '',
+            link: '',
             duree: null,
             identifiant: '',
             erreur: ''
         }
 
-        this.verifier = this.verifier.bind(this);
-        this.envoyer = this.envoyer.bind(this);
-        this.afficher = this.afficher.bind(this);
+        this.verify = this.verify.bind(this);
+        this.send = this.send.bind(this);
+        this.display = this.display.bind(this);
     }
 
-    async envoyer(event) {
+    async send(event) {
         event.preventDefault();
         const objet = {
-            lien: this.state.lien
+            lien: this.state.link
         }
         const donnees = await POST.redirection(objet);
         if (donnees.err) {
@@ -33,24 +33,24 @@ export default class Principale extends React.Component {
         }
     }
 
-    verifier(event) {
+    verify(event) {
         const target = event.target;
         const valeur = target.value;
         const nom = target.name;
         this.setState({[nom]: valeur});
     }
 
-    afficher(event) {
+    display(event) {
         this.setState({restrictions: !this.state.restrictions});
     }
 
     message() {
         switch (this.state.etat) {
             case 1:
-                return <Erreur erreur={this.state.erreur}/>;
+                return <Error erreur={this.state.erreur}/>;
                 break;
             case 2:
-                return <Succes identifiant={this.state.identifiant}/>;
+                return <Success identifiant={this.state.identifiant}/>;
                 break;
             default:
                 return '';
@@ -61,21 +61,20 @@ export default class Principale extends React.Component {
         if (this.state.restrictions) {
             return (<div className="field">
                     <hr/>
-
                     <div className="field is-grouped">
                         <div class="control">
-                            <label className="label">Durée de validité</label>
-                            <input placeholder="2" className="input"
+                            <label className="label">Time</label>
+                            <input placeholder="2" className="input is-medium is-rounded"
                                    name="duree" value={this.state.duree}
-                                   onChange={this.verifier}/>
+                                   onChange={this.verify}/>
                         </div>
                         <div className="control">
                             <label className="label">&nbsp;</label>
-                            <div className="select">
+                            <div className="select is-medium is-rounded">
                                 <select>
                                     <option>minutes</option>
-                                    <option>heures</option>
-                                    <option>jours</option>
+                                    <option>hours</option>
+                                    <option>days</option>
                                 </select>
                             </div>
                         </div>
@@ -83,10 +82,10 @@ export default class Principale extends React.Component {
 
                     <div className="field is-grouped">
                         <div className="control">
-                            <label className="label">Utilisation max</label>
-                            <input placeholder="2" className="input"
+                            <label className="label">Maximum use</label>
+                            <input placeholder="2" className="input is-medium is-rounded"
                                    name="utilisation" value={this.state.duree}
-                                   onChange={this.verifier}/>
+                                   onChange={this.verify}/>
                         </div>
                     </div>
                 </div>
@@ -99,17 +98,15 @@ export default class Principale extends React.Component {
     render() {
         return (<div>
                 <Head>
-                    <title>Link.to</title>
+                    <title>Link to</title>
                 </Head>
-
                 <section className="section">
                     <div className="container">
                         <nav className="navbar is-transparent">
                             <div className="navbar-brand">
-                                <a className="navbar-item" href="https://bulma.io">
-                                    Link.to
-                                </a>
+                                <a className="navbar-item">
 
+                                </a>
                                 <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
                                     <span aria-hidden="true"></span>
                                     <span aria-hidden="true"></span>
@@ -121,7 +118,7 @@ export default class Principale extends React.Component {
                                 <div className="navbar-end">
                                     <a className="navbar-item"
                                        href="/informations">
-                                        <span className="underline">Comment ça fonctionne ?</span>
+                                        <span className="underline">How does it work ?</span>
                                     </a>
 
                                 </div>
@@ -136,19 +133,18 @@ export default class Principale extends React.Component {
                             <div className="columns is-vcentered">
                                 <div className="column is-half">
 
-                                    <h1 className="title is-1 is-spaced">Créez des liens fantômes.</h1>
-                                    <h2 className="subtitle is-4">Des liens masqués avec un accès limité ou non.</h2>
+                                    <h1 className="title is-2 is-spaced">Ghost links 👻</h1>
+                                    <h2 className="subtitle is-5">Create hidden links and easily manage their access.</h2>
                                     <div className="form">
-                                        <form onSubmit={this.envoyer}>
+                                        <form onSubmit={this.send}>
                                             <div className="field is-grouped">
                                                 <div class="control is-expanded">
-                                                    <input placeholder="www.google.com" className="input is-medium"
-                                                           name="lien" value={this.state.lien}
-                                                           onChange={this.verifier}/>
+                                                    <input placeholder="www.google.com" className="input is-medium is-rounded"
+                                                           name="lien" value={this.state.link}
+                                                           onChange={this.verify}/>
                                                 </div>
                                                 <div class="control">
-                                                    <button className="button is-black is-medium" type="submit">Créer un
-                                                        nouveau lien
+                                                    <button className="button is-black is-medium is-rounded" type="submit">Create a link
                                                     </button>
                                                 </div>
                                             </div>
@@ -157,23 +153,26 @@ export default class Principale extends React.Component {
 
                                             {this.restrictions()}
 
+                                            <hr/>
+
                                             <div className="field is-grouped">
                                                 <label className="label pointer">
-                                                <span className="icon">
+                                                    <span className="icon">
                                                     {
                                                         this.state.restrictions ?
                                                             <i className="fas fa-chevron-up"></i> :
                                                             <i className="fas fa-chevron-down"></i>
                                                     }
-
-                                            </span>
-                                                <span onClick={this.afficher}>
-                                            Plus d'options
-                                                </span>
+                                                    </span>
+                                                    <span onClick={this.display}>
+                                                    {
+                                                        this.state.restrictions ?
+                                                            " Hide options (under development)" :
+                                                            " Show options (under development)"
+                                                    }
+                                                    </span>
                                                 </label>
                                             </div>
-
-
                                         </form>
                                     </div>
                                 </div>
@@ -189,39 +188,37 @@ export default class Principale extends React.Component {
     }
 }
 
-function Succes(props) {
-    return (<div className="field">
-
-        <div className="message has-border-dashed has-border-success">
+function Success(props) {
+    return (
+        <div className="field">
+            <div className="message has-border-dashed has-border-success">
              <span className="icon has-text-success">
                 <i className="fas fa-lg fa-check-circle"></i>
-                       </span>
-            <span>
+             </span>
 
-            Votre nouveau lien :
+                <span>
             <Link
-                href={'/' + props.identifiant}>
+                href={window.location.hostname + '/' + props.identifiant}>
                 <a>{props.identifiant}</a>
             </Link>
                 </span>
-            <span className="icon has-text-success">
+                <span className="icon has-text-success">
         <i className="far fa-lg fa-clipboard"></i>
               </span>
-        </div>
+            </div>
 
-    </div>);
+        </div>);
 
 }
 
-function Erreur(props) {
-    return (<div className="field">
-        <div className="message has-border-dashed has-border-danger">
+function Error(props) {
+    return (
+        <div className="field">
+            <div className="message has-border-dashed has-border-danger">
              <span className="icon has-text-danger">
                <i className="fas fa-lg fa-times-circle"></i>
                        </span>
-
-            <span className="has-text-danger">{props.erreur}</span>
-
-        </div>
-    </div>);
+                <span className="has-text-danger">{props.erreur}</span>
+            </div>
+        </div>);
 }

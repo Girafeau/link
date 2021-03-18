@@ -1,26 +1,27 @@
 import Link from "next/link";
 
 function redirection(props) {
-    return (<div>
-        <section className="hero is-medium">
-            <div className="hero-body">
-                <div className="container">
-                    <div className="columns is-vcentered">
-                        <div className="column is-half">
-                            <h1 className="title is-1 is-spaced">{props.titre}</h1>
-                            <h2 className="subtitle is-4">{props.texte}</h2>
-                            <Link href="/">
-                                <a className="button is-black is-medium">Retourner à l'accueil</a>
-                            </Link>
-                        </div>
-                        <div className="column is-half">
-                            <img src={props.image}/>
+    return (
+        <div>
+            <section className="hero is-medium">
+                <div className="hero-body">
+                    <div className="container">
+                        <div className="columns is-vcentered">
+                            <div className="column is-half">
+                                <h1 className="title is-1 is-spaced">{props.titre}</h1>
+                                <h2 className="subtitle is-4">{props.texte}</h2>
+                                <Link href="/">
+                                    <a className="button is-black is-medium is-rounded">Let's go back home please</a>
+                                </Link>
+                            </div>
+                            <div className="column is-half">
+                                <img src={props.image}/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>);
+            </section>
+        </div>);
 }
 
 export async function getServerSideProps(context) {
@@ -37,8 +38,8 @@ export async function getServerSideProps(context) {
     if (!existe) {
         return {
             props: {
-                titre: 'Oups ce lien n\'existe pas.',
-                texte: 'Soit vous vous êtes trompé soit on vous a fait une mauvaise farce.',
+                titre: 'Oops this link does\'nt exist.',
+                texte: 'Someone played a joke on you.',
                 image: '/hugo-bad-gateway.png'
             }
         }
@@ -47,8 +48,8 @@ export async function getServerSideProps(context) {
         if(!accessible) {
             return {
                 props: {
-                    titre: 'Oups ce lien n\'est plus accessible.',
-                    texte: 'L\'auteur de ce lien a restreint son usage et il n\'est désormais plus possible d\'y accéder.',
+                    titre: 'Oops this link is no more accessible.',
+                    texte: 'The author of this link has restricted its use.',
                     image: '/hugo-no-connection.png'
                 }
             }
@@ -60,7 +61,6 @@ export async function getServerSideProps(context) {
                 context.res.writeHead(302, {Location: 'https://' + existe.lien});
                 context.res.end();
             }
-
         }
     }
 }
