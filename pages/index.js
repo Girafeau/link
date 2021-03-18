@@ -140,7 +140,7 @@ export default class Principale extends React.Component {
                                             <div className="field is-grouped">
                                                 <div class="control is-expanded">
                                                     <input placeholder="www.google.com" className="input is-medium is-rounded"
-                                                           name="lien" value={this.state.link}
+                                                           name="link" value={this.state.link}
                                                            onChange={this.verify}/>
                                                 </div>
                                                 <div class="control">
