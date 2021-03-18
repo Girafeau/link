@@ -8,8 +8,8 @@ function redirection(props) {
                     <div className="container">
                         <div className="columns is-vcentered">
                             <div className="column is-half">
-                                <h1 className="title is-1 is-spaced">{props.titre}</h1>
-                                <h2 className="subtitle is-4">{props.texte}</h2>
+                                <h1 className="title is-2 is-spaced">{props.titre}</h1>
+                                <h2 className="subtitle is-5">{props.texte}</h2>
                                 <Link href="/">
                                     <a className="button is-black is-medium is-rounded">Let's go back home please</a>
                                 </Link>
@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
     if (!existe) {
         return {
             props: {
-                titre: 'Oops this link does\'nt exist.',
+                titre: 'Oops this link doesn\'t exist.',
                 texte: 'Someone played a joke on you.',
                 image: '/hugo-bad-gateway.png'
             }
