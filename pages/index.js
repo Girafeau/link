@@ -198,8 +198,8 @@ function Success(props) {
 
                 <span>
             <Link
-                href={window.location.hostname + '/' + props.identifiant}>
-                <a>{props.identifiant}</a>
+                href={'/' + props.identifiant}>
+                <a>{window.location.origin + '/' + props.identifiant}</a>
             </Link>
                 </span>
                 <span className="icon has-text-success">
